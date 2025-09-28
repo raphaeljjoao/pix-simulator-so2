@@ -10,8 +10,8 @@ Use `make` to compile the project. The server and client must be run in separate
 | :--- | :--- |
 | `make` | Compiles the server and client into the `bin/` directory. |
 | `make clean` | Deletes all compiled files. |
-| `./bin/servidor <port>` | [cite_start]Runs the server on the specified port. [cite: 111, 112] |
-| `./bin/cliente <port>`| [cite_start]Runs a client on the specified port. [cite: 133, 134] |
+| `./bin/servidor <port>` | Runs the server on the specified port. |
+| `./bin/cliente <port>`| Runs a client on the specified port. |
 
 **Example:**
 
