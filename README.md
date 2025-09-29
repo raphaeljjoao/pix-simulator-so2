@@ -8,10 +8,10 @@ Use `make` to compile the project. The server and client must be run in separate
 
 | Command | Description |
 | :--- | :--- |
-| `make` | Compiles the server and client into the `bin/` directory. |
+| `make` | Compiles the server and client. Executables are created in the **root directory**. |
 | `make clean` | Deletes all compiled files. |
-| `./bin/servidor <port>` | Runs the server on the specified port. |
-| `./bin/cliente <port>`| Runs a client on the specified port. |
+| `./servidor <port>` | Runs the server on the specified port. |
+| `./cliente <port>`| Runs a client on the specified port. |
 
 **Example:**
 
@@ -20,8 +20,8 @@ Use `make` to compile the project. The server and client must be run in separate
 make
 
 # In Terminal 1, start the server
-./bin/servidor 4000
+./servidor 4000
 
 # In Terminal 2, start a client
-./bin/cliente 4000
+./cliente 4000
 ```

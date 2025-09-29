@@ -3,14 +3,13 @@
 #
 
 # The 'all' rule is the default goal. It builds both programs.
-all: bin/servidor bin/cliente
+all: servidor cliente
 
 # --- Rules to build the SERVER ---
 
-# Rule to link the server executable from its object file.
-bin/servidor: obj/server_udp.o
-	@mkdir -p bin
-	gcc -Wall -g -pthread obj/server_udp.o -o bin/servidor
+# Rule to link the server executable in the root directory.
+servidor: obj/server_udp.o
+	gcc -Wall -g -pthread obj/server_udp.o -o servidor
 
 # Rule to compile the server source code into an object file.
 obj/server_udp.o: src/server_udp.c
@@ -19,10 +18,9 @@ obj/server_udp.o: src/server_udp.c
 
 # --- Rules to build the CLIENT ---
 
-# Rule to link the client executable from its object file.
-bin/cliente: obj/client_udp.o
-	@mkdir -p bin
-	gcc -Wall -g -pthread obj/client_udp.o -o bin/cliente
+# Rule to link the client executable in the root directory.
+cliente: obj/client_udp.o
+	gcc -Wall -g -pthread obj/client_udp.o -o cliente
 
 # Rule to compile the client source code into an object file.
 obj/client_udp.o: src/client_udp.c
@@ -31,9 +29,9 @@ obj/client_udp.o: src/client_udp.c
 
 # --- Cleanup Rule ---
 
-# Deletes all generated files and directories.
+# Deletes the object directory and the executables from the root.
 clean:
-	rm -rf obj bin
+	rm -rf obj servidor cliente
 
 # Declares that 'all' and 'clean' are not actual file names.
 .PHONY: all clean
