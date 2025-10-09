@@ -1,6 +1,8 @@
 # Build output directories
 /bin/
 /obj/
+servidor
+cliente
 
 # Prerequisites
 *.d
