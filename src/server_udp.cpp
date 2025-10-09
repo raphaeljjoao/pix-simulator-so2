@@ -7,6 +7,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <iomanip>
+#include <chrono>
+#include "network_structs.hpp"
 
 #define PORT 4000
 
@@ -29,6 +32,15 @@ int main(int argc, char *argv[])
 		std::cout << "ERROR on binding";
 	
 	clilen = sizeof(struct sockaddr_in);
+
+	network_structs::Stats stats;
+	
+	auto now = std::chrono::system_clock::now();
+	auto time_t = std::chrono::system_clock::to_time_t(now);
+	std::cout << std::put_time(std::localtime(&time_t), "%Y-%m-%d %H:%M:%S")
+			  << " num_transactions " << stats.num_transactions
+			  << " total_transferred " << stats.total_transferred
+			  << " total_balance " << stats.total_balance << std::endl;
 	
 	while (1) {
 		/* receive from socket */
