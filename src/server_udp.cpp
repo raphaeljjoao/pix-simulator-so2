@@ -1,11 +1,12 @@
 #include <sys/types.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <string.h>
+#include <unistd.h>
 #include <netdb.h>
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
 
 #define PORT 4000
 
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
 	char buf[256];
 		
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) 
-		printf("ERROR opening socket");
+		std::cout << "ERROR opening socket";
 
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_port = htons(PORT);
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
 	bzero(&(serv_addr.sin_zero), 8);    
 	 
 	if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(struct sockaddr)) < 0) 
-		printf("ERROR on binding");
+		std::cout << "ERROR on binding";
 	
 	clilen = sizeof(struct sockaddr_in);
 	
@@ -33,13 +34,13 @@ int main(int argc, char *argv[])
 		/* receive from socket */
 		n = recvfrom(sockfd, buf, 256, 0, (struct sockaddr *) &cli_addr, &clilen);
 		if (n < 0) 
-			printf("ERROR on recvfrom");
-		printf("Received a datagram: %s\n", buf);
+			std::cout << "ERROR on recvfrom";
+		std::cout << "Received a datagram: " << buf << std::endl;
 		
 		/* send to socket */
 		n = sendto(sockfd, "Got your message\n", 17, 0,(struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
 		if (n  < 0) 
-			printf("ERROR on sendto");
+			std::cout << "ERROR on sendto";
 	}
 	
 	close(sockfd);
