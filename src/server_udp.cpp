@@ -11,7 +11,7 @@
 #include <chrono>
 #include "network_structs.hpp"
 
-#define PORT 4000
+const int PORT = 4000;
 
 int main(int argc, char *argv[])
 {
