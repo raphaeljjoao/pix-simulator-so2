@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
 	int sockfd, n;
 	socklen_t clilen;
 	struct sockaddr_in serv_addr, cli_addr;
-	char buf[256];
 		
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) 
 		std::cout << "ERROR opening socket";
@@ -43,11 +42,13 @@ int main(int argc, char *argv[])
 			  << " total_balance " << stats.total_balance << std::endl;
 	
 	while (1) {
+		network_structs::Packet received_packet;
+
 		/* receive from socket */
-		n = recvfrom(sockfd, buf, 256, 0, (struct sockaddr *) &cli_addr, &clilen);
+		n = recvfrom(sockfd, &received_packet, sizeof(network_structs::Packet), 0, (struct sockaddr *) &cli_addr, &clilen);
 		if (n < 0) 
 			std::cout << "ERROR on recvfrom";
-		std::cout << "Received a datagram: " << buf << std::endl;
+		std::cout << "Received a datagram: " << static_cast<int>(received_packet.type) << std::endl;
 		
 		/* send to socket */
 		n = sendto(sockfd, "Got your message\n", 17, 0,(struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
