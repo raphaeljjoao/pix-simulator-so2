@@ -35,4 +35,10 @@ namespace network_structs {
         int64_t total_balance = 0;
     };
 
+    struct Client {
+        uint32_t address;
+        uint32_t last_req = 0;
+        int64_t balance = 0;
+    };
+
 }
