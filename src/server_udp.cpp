@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 				std::cout << "Duplicate discovery from client: " << client_addr << std::endl;
 			}
 			
-			// Create and send DISCOVERY_ACK response
+			// In both cases (new or duplicate), send DISCOVERY_ACK response
 			network_structs::Packet response_packet;
 			response_packet.type = network_structs::PacketType::DISCOVERY_ACK;
 			response_packet.sequence_number = received_packet.sequence_number;
