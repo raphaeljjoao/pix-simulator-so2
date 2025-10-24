@@ -1,6 +1,7 @@
 # Build output directories
 /bin/
 /obj/
+/vscode/
 servidor
 cliente
 
@@ -45,3 +46,6 @@ cliente
 
 # debug information files
 *.dwo
+
+
+.DS_Store
