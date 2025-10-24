@@ -1,7 +1,7 @@
 # Build output directories
 /bin/
 /obj/
-/vscode/
+/.vscode/
 servidor
 cliente
 
