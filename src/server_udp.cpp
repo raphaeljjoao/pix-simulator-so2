@@ -74,8 +74,6 @@ int main(int argc, char *argv[])
 			n = sendto(sockfd, &response_packet, sizeof(network_structs::Packet), 0, (struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
 			if (n < 0) 
 				std::cout << "ERROR on sendto" << std::endl;
-			else
-				std::cout << "Got your message" << std::endl;
 		} else {
 			std::cout << "Ignored packet" << std::endl;
 		}
