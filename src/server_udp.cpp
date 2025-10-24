@@ -10,7 +10,15 @@
 #include <iomanip>
 #include <chrono>
 #include <unordered_map>
+#include <map>
 #include "network_structs.hpp"
+
+struct ClientInfo {
+    uint32_t last_req = 0;
+    uint64_t balance = 100;
+};
+
+std::map<uint32_t, ClientInfo> client_table;
 
 const int PORT = 4000;
 const int INITIAL_CLIENT_BALANCE = 100;
@@ -57,12 +65,15 @@ int main(int argc, char *argv[])
 		if (received_packet.type == network_structs::PacketType::DISCOVERY) {
 			uint32_t client_addr = cli_addr.sin_addr.s_addr;
 			
-			network_structs::Client new_client;
-			new_client.address = client_addr;
-			new_client.balance = INITIAL_CLIENT_BALANCE;
-			new_client.last_req = 0;
-			if (clients.find(client_addr) == clients.end()) {
-				clients[client_addr] = new_client;
+			if (client_table.find(client_addr) == client_table.end()) {
+				ClientInfo new_client;
+				client_table[client_addr] = new_client;
+				
+				stats.total_balance += 100;
+				
+				std::cout << "New client registered: " << client_addr << ". Total balance: " << stats.total_balance << std::endl;
+			} else {
+				std::cout << "Duplicate discovery from client: " << client_addr << std::endl;
 			}
 			
 			// Create and send DISCOVERY_ACK response
