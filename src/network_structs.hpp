@@ -29,5 +29,16 @@ namespace network_structs {
             AckPayload ack;
         } data;
     };
+    struct Stats {
+        uint64_t num_transactions = 0;
+        uint64_t total_transferred = 0;
+        int64_t total_balance = 0;
+    };
+
+    struct Client {
+        uint32_t address;
+        uint32_t last_req = 0;
+        int64_t balance = 0;
+    };
 
 }
