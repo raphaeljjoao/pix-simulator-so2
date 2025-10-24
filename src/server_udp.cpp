@@ -2,26 +2,22 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
-#include <netdb.h>
-#include <cstdio>
-#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <iomanip>
 #include <chrono>
-#include <unordered_map>
 #include <map>
 #include "network_structs.hpp"
 
+const int PORT = 4000;
+const int INITIAL_CLIENT_BALANCE = 100;
+
 struct ClientInfo {
     uint32_t last_req = 0;
-    uint64_t balance = 100;
+    uint64_t balance = INITIAL_CLIENT_BALANCE;
 };
 
 std::map<uint32_t, ClientInfo> client_table;
-
-const int PORT = 4000;
-const int INITIAL_CLIENT_BALANCE = 100;
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +39,6 @@ int main(int argc, char *argv[])
 	clilen = sizeof(struct sockaddr_in);
 
 	network_structs::Stats stats;
-	std::unordered_map<uint32_t, network_structs::Client> clients;
 	
 	auto now = std::chrono::system_clock::now();
 	auto time_t = std::chrono::system_clock::to_time_t(now);
@@ -69,7 +64,7 @@ int main(int argc, char *argv[])
 				ClientInfo new_client;
 				client_table[client_addr] = new_client;
 				
-				stats.total_balance += 100;
+				stats.total_balance += INITIAL_CLIENT_BALANCE;
 				
 				std::cout << "New client registered: " << client_addr << ". Total balance: " << stats.total_balance << std::endl;
 			} else {
